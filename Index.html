@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>math</title>
+    <style>
+        /* Custom CSS styles for the search bar */
+        #searchForm {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 50px;
+        }
+
+        #searchInput {
+            padding: 10px;
+            border: 2px solid #007bff;
+            border-radius: 30px;
+            font-size: 16px;
+            outline: none;
+            width: 300px;
+            transition: border-color 0.3s ease-in-out;
+            background-color: #f8f9fa;
+            color: #495057;
+        }
+
+        #searchInput:focus {
+            border-color: #0056b3;
+            background-color: #fff;
+            color: #000;
+        }
+
+        #searchButton {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 30px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-left: 10px;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        #searchButton:hover {
+            background-color: #0056b3;
+        }
+
+        #output {
+            margin-top: 20px;
+            font-size: 18px;
+}
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("#searchForm").submit(function(event) {
+                event.preventDefault();
+                var searchInput = $("#searchInput").val();
+                var url;
+
+                if (searchInput.endsWith(".gg") || searchInput.endsWith(".com") || searchInput.endsWith(".org") || searchInput.endsWith(".gov") || searchInput.endsWith(".ai") || searchInput.endsWith(".io")) {
+                    url = "https://s1p1.onrender.com/service/https://" + searchInput;
+                } else {
+                    url = "https://www.google.com/search?q=" + searchInput;
+                }
+
+                $("#output").text(url);
+                window.location.href = url;
+            });
+
+            // Function to get the current time in Chicago
+            function getChicagoTime() {
+                var currentTime = new Date();
+                var options = { timeZone: 'America/Chicago', hour12: false };
+                var chicagoTime = currentTime.toLocaleTimeString('en-US', options);
+                return chicagoTime;
+            }
+
+            // Update the output element with the current time in Chicago
+            setInterval(function() {
+                var chicagoTime = getChicagoTime();
+                $("#output").text("Current time in Chicago: " + chicagoTime);
+            }, 1000);
+        });
+    </script>
+</head>
+<body>
+    <form id="searchForm">
+        <input type="text" id="searchInput" placeholder="Enter the URL or query">
+        <input type="submit" id="searchButton" value="Search">
+    </form>
+    <p id="output"></p>
+</body>
+</html>
